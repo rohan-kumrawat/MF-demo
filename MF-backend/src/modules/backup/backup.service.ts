@@ -72,11 +72,24 @@ export class BackupService {
 
   private createDump(outPath: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      const host = process.env.DB_HOST || 'localhost';
-      const port = process.env.DB_PORT || '5432';
-      const user = process.env.DB_USERNAME || process.env.DB_USER || 'postgres';
-      const pass = process.env.DB_PASSWORD || '';
-      const db = process.env.DB_NAME || 'microfinance';
+      let host = process.env.DB_HOST || 'localhost';
+      let port = process.env.DB_PORT || '5432';
+      let user = process.env.DB_USERNAME || process.env.DB_USER || 'postgres';
+      let pass = process.env.DB_PASSWORD || '';
+      let db = process.env.DB_NAME || 'microfinance';
+
+      if (process.env.DATABASE_URL) {
+        try {
+          const parsed = new URL(process.env.DATABASE_URL);
+          host = parsed.hostname || host;
+          port = parsed.port || port;
+          user = decodeURIComponent(parsed.username) || user;
+          pass = decodeURIComponent(parsed.password) || pass;
+          db = parsed.pathname.slice(1) || db;
+        } catch (e) {
+          this.logger.warn('Failed to parse DATABASE_URL: ' + (e as Error).message);
+        }
+      }
 
       const env = Object.assign({}, process.env, { PGPASSWORD: pass });
 

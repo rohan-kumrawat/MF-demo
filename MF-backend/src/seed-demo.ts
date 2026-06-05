@@ -43,11 +43,15 @@ import { UdharEntryType } from './common/enums/udhar-entry-type.enum';
 
 const AppDataSource = new DataSource({
   type: 'postgres',
-  host: process.env.DB_HOST ?? 'localhost',
-  port: parseInt(process.env.DB_PORT ?? '5432', 10),
-  username: process.env.DB_USERNAME ?? 'postgres',
-  password: process.env.DB_PASSWORD ?? 'postgres',
-  database: process.env.DB_NAME ?? 'microfinance_demo',
+  url: process.env.DATABASE_URL,
+  host: process.env.DATABASE_URL ? undefined : (process.env.DB_HOST ?? 'localhost'),
+  port: process.env.DATABASE_URL ? undefined : parseInt(process.env.DB_PORT ?? '5432', 10),
+  username: process.env.DATABASE_URL ? undefined : (process.env.DB_USERNAME ?? 'postgres'),
+  password: process.env.DATABASE_URL ? undefined : (process.env.DB_PASSWORD ?? 'postgres'),
+  database: process.env.DATABASE_URL ? undefined : (process.env.DB_NAME ?? 'microfinance_demo'),
+  ssl: process.env.DB_SSL === 'true' || (process.env.DATABASE_URL && process.env.DATABASE_URL.includes('sslmode=require'))
+    ? { rejectUnauthorized: false }
+    : false,
   synchronize: true,
   logging: false,
   entities: [

@@ -50,11 +50,15 @@ import { VaultCredential }     from './modules/vault/entities/vault-credential.e
     ]),
     TypeOrmModule.forRoot({
       type        : 'postgres',
-      host        : process.env.DB_HOST        ?? 'localhost',
-      port        : parseInt(process.env.DB_PORT ?? '5432', 10),
-      username    : process.env.DB_USERNAME    ?? 'postgres',
-      password    : process.env.DB_PASSWORD    ?? 'postgres',
-      database    : process.env.DB_NAME        ?? 'microfinance',
+      url         : process.env.DATABASE_URL,
+      host        : process.env.DATABASE_URL ? undefined : (process.env.DB_HOST ?? 'localhost'),
+      port        : process.env.DATABASE_URL ? undefined : parseInt(process.env.DB_PORT ?? '5432', 10),
+      username    : process.env.DATABASE_URL ? undefined : (process.env.DB_USERNAME ?? 'postgres'),
+      password    : process.env.DATABASE_URL ? undefined : (process.env.DB_PASSWORD ?? 'postgres'),
+      database    : process.env.DATABASE_URL ? undefined : (process.env.DB_NAME ?? 'microfinance'),
+      ssl         : process.env.DB_SSL === 'true' || (process.env.DATABASE_URL && process.env.DATABASE_URL.includes('sslmode=require'))
+                    ? { rejectUnauthorized: false }
+                    : false,
       synchronize : process.env.TYPEORM_SYNCHRONIZE === 'true',
       logging     : process.env.TYPEORM_LOGGING     === 'true',
       entities: [
