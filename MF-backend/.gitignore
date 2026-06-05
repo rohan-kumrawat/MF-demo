@@ -1,0 +1,13 @@
+node_modules
+.env
+.vscode
+.env.example
+dist
+coverage
+.DS_Store
+API_CURL_REFERENCE.md
+
+# Stray compiled files (if tsc is run directly by mistake)
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts

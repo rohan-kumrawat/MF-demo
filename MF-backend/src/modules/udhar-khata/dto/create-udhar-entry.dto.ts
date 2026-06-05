@@ -1,0 +1,33 @@
+import {
+  IsDateString, IsEnum, IsNumber, IsOptional,
+  IsString, Min,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+import { UdharEntryType } from '../../../common/enums/udhar-entry-type.enum';
+
+export class CreateUdharEntryDto {
+  @IsEnum(UdharEntryType)
+  entryType: UdharEntryType;
+
+  @Type(() => Number)
+  @IsNumber()
+  @Min(0.01, { message: 'amount must be greater than 0' })
+  amount: number;
+
+  @IsDateString()
+  entryDate: string;
+
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  @Min(0, { message: 'interestAmount cannot be negative' })
+  interestAmount?: number;
+
+  @IsOptional()
+  @IsDateString()
+  dueDate?: string;
+
+  @IsOptional()
+  @IsString()
+  remark?: string;
+}

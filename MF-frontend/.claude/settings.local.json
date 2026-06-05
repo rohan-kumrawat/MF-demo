@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc:*)",
+      "Bash(npm run:*)",
+      "WebFetch(domain:zustand.docs.pmnd.rs)",
+      "Bash(find \"d:\\\\nextjs\\\\guru-kripa-micro-finance\\\\src\\\\feature\\\\agent\\\\\" -type f -name \"*.ts\" -o -name \"*.tsx\" -o -name \"*.json\" | head -50)"
+    ]
+  }
+}

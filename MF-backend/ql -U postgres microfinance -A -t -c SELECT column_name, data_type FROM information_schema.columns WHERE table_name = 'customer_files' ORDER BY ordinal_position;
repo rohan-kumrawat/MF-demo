@@ -1,0 +1,28 @@
+                                Table "public.customer_files"
+       Column       |            Type             | Collation | Nullable |      Default       
+--------------------+-----------------------------+-----------+----------+--------------------
+ id                 | uuid                        |           | not null | uuid_generate_v4()
+ customerId         | uuid                        |           | not null | 
+ centreId           | uuid                        |           | not null | 
+ cloudinaryPublicId | character varying(255)      |           | not null | 
+ fileUrl            | character varying(500)      |           | not null | 
+ originalFileName   | character varying(255)      |           | not null | 
+ mimeType           | character varying(100)      |           | not null | 
+ fileSize           | integer                     |           | not null | 
+ documentType       | character varying(50)       |           |          | 
+ description        | text                        |           |          | 
+ uploadedAt         | timestamp without time zone |           | not null | now()
+ updatedAt          | timestamp without time zone |           | not null | now()
+ loanId             | uuid                        |           |          | 
+Indexes:
+    "PK_16b0f747b25a23da8bcdf643ffa" PRIMARY KEY, btree (id)
+    "IDX_033a950f7c4a99fade2f30c0ac" btree ("uploadedAt")
+    "IDX_21296f1cd9cc1eb0e25c07d327" btree ("customerId")
+    "IDX_664afb599b0ff2a3a7596f4ea2" btree ("centreId", "customerId")
+    "UQ_a1693c0c088c27d5ad54caf7eb6" UNIQUE CONSTRAINT, btree ("cloudinaryPublicId")
+    "idx_customer_files_centre_customer" btree ("centreId", "customerId")
+    "idx_customer_files_centre_customer_loan" btree ("centreId", "customerId", "loanId")
+    "idx_customer_files_customer_id" btree ("customerId")
+    "idx_customer_files_loan_id" btree ("loanId")
+    "idx_customer_files_uploaded_at" btree ("uploadedAt")
+
