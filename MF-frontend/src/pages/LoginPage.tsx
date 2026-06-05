@@ -58,6 +58,11 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const handleAutofill = (u: string, p: string) => {
+    setUsername(u);
+    setPassword(p);
+  };
+
   // Auto-redirect if already logged in
   useEffect(() => {
     if (_hasHydrated && isAuthenticated && role) {
@@ -161,7 +166,7 @@ export default function LoginPage() {
                 className="font-black text-2xl tracking-tight"
                 style={{ fontFamily: "Manrope, sans-serif" }}
               >
-                Guru Kripa / Sant Siyaram
+                Demo Micro Finance Dashboard
               </span>
             </div>
 
@@ -169,15 +174,14 @@ export default function LoginPage() {
               className="text-4xl font-extrabold leading-tight tracking-tight mb-6"
               style={{ fontFamily: "Manrope, sans-serif" }}
             >
-              Elevating Trust in <br />
+              Empowering Communities through <br />
               <span className="text-primary-foreground/90">
-                Private Banking
+                Micro Finance Solutions
               </span>
             </h1>
 
             <p className="text-white/80 text-lg max-w-md leading-relaxed">
-              Access your secure financial ecosystem with institutional-grade
-              protection and bespoke concierge services.
+              Manage centres, loans, daily collections, and client ledgers in one secure, unified dashboard.
             </p>
           </div>
 
@@ -216,7 +220,7 @@ export default function LoginPage() {
               className="font-black text-xl text-primary tracking-tight"
               style={{ fontFamily: "Manrope, sans-serif" }}
             >
-              Guru Kripa Connect
+              Demo Micro Finance Dashboard
             </span>
           </div>
 
@@ -229,7 +233,7 @@ export default function LoginPage() {
               Welcome Back
             </h2>
             <p className="text-center text-muted-foreground">
-              Select your role to continue to the portal
+              Sign in to manage your microfinance operations
             </p>
           </div>
 
@@ -340,6 +344,47 @@ export default function LoginPage() {
             </button>
           </form>
 
+          {/* Demo Credentials Box */}
+          <div className="mt-6 p-4 bg-primary/5 rounded-2xl border border-primary/10 space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-1.5">
+                <Shield className="w-3.5 h-3.5" /> Demo Credentials (Click to Autofill)
+              </h3>
+              <span className="text-[10px] font-medium px-2 py-0.5 bg-primary/10 text-primary rounded-full">
+                Centre: DEMO
+              </span>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                onClick={() => handleAutofill("demo", "demo@123")}
+                className="bg-white hover:bg-primary/5 hover:border-primary/30 active:scale-95 transition-all text-left p-2.5 rounded-xl border border-border flex flex-col justify-between"
+              >
+                <span className="font-bold text-[11px] text-primary mb-1">Admin</span>
+                <span className="text-[10px] text-muted-foreground font-mono">demo</span>
+                <span className="text-[10px] text-muted-foreground font-mono">demo@123</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleAutofill("agent.demo", "demo@123")}
+                className="bg-white hover:bg-primary/5 hover:border-primary/30 active:scale-95 transition-all text-left p-2.5 rounded-xl border border-border flex flex-col justify-between"
+              >
+                <span className="font-bold text-[11px] text-primary mb-1">Agent</span>
+                <span className="text-[10px] text-muted-foreground font-mono">agent.demo</span>
+                <span className="text-[10px] text-muted-foreground font-mono">demo@123</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleAutofill("sunita.devi", "demo@123")}
+                className="bg-white hover:bg-primary/5 hover:border-primary/30 active:scale-95 transition-all text-left p-2.5 rounded-xl border border-border flex flex-col justify-between"
+              >
+                <span className="font-bold text-[11px] text-primary mb-1">Customer (10)</span>
+                <span className="text-[10px] text-muted-foreground font-mono">sunita.devi</span>
+                <span className="text-[10px] text-muted-foreground font-mono">demo@123</span>
+              </button>
+            </div>
+          </div>
+
           {/* Legal */}
           <div className="pt-8 text-center">
             <p className="text-sm text-muted-foreground">
@@ -360,7 +405,7 @@ export default function LoginPage() {
       {/* Bottom footer */}
       <footer className="fixed bottom-6 w-full text-center pointer-events-none px-4">
         <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-          © 2024 Guru Kripa Connect Financial Services. All Rights Reserved.
+          © 2026 Demo Micro Finance Dashboard. All Rights Reserved.
         </p>
       </footer>
     </div>
